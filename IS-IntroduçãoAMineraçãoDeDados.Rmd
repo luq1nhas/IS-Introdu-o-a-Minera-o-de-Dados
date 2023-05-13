@@ -1,0 +1,21 @@
+```{r}
+install.packages("rvest")
+library(rvest)
+
+url <- "https://quotes.toscrape.com/"
+
+
+lerPagina <- read_html(url)
+
+
+citaçoes <- lerPagina %>% html_nodes(".quote .text") %>% html_text()
+autores <- lerPagina %>% html_nodes(".quote .author") %>% html_text()
+tags <- lerPagina %>% html_nodes(".quote .tags .tag") %>% html_text()
+
+
+citaçoes_df <- data.frame(citaçoes, autores, tags)
+
+print(citaçoes_df)
+table(citaçoes_df$autores)
+table(citaçoes_df$tags)
+```
